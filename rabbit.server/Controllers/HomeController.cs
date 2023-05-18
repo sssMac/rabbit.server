@@ -17,7 +17,7 @@ namespace rabbit.server.Controllers
 			_authService = authService;
 		}
 
-		[HttpPost("login")]
+		[HttpGet("login")]
 		public async Task<IActionResult> Login(string username, string password)
 		{
 			if (await _authService.Login(username, password))
@@ -28,7 +28,7 @@ namespace rabbit.server.Controllers
 			return BadRequest("User is already!");
 		}
 
-		[HttpPost("logout")]
+		[HttpGet("logout")]
 		public async Task<IActionResult> logout(string username)
 		{
 			if (await _authService.logout(username))
