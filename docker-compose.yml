@@ -1,0 +1,8 @@
+version: '3.4'
+
+services:
+  rabbit.server:
+    image: ${DOCKER_REGISTRY-}rabbitserver
+    build:
+      context: .
+      dockerfile: rabbit.server/Dockerfile
