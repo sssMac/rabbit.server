@@ -38,8 +38,7 @@ namespace rabbit.server.RabitMQ
 			using var channel = connection.CreateModel();
 			channel.QueueDeclare("logout", exclusive: false);
 
-			var json = JsonConvert.SerializeObject(userName);
-			var body = Encoding.UTF8.GetBytes(json);
+			var body = Encoding.UTF8.GetBytes(userName);
 
 			channel.BasicPublish(exchange: "", routingKey: "logout", body: body);
 			Console.WriteLine($"{userName} was logout!");
