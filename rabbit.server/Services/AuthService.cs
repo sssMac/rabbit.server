@@ -21,7 +21,7 @@ namespace rabbit.server.Services
 			if (Users.Any(u => u.Username == username))
 				await logout(username);
 
-			var newUser = new User { Username = username, Password = password };
+			var newUser = new User { Username = username, Password = password, Token = Guid.NewGuid() };
 			Users.Add(newUser);
 
 			_rabitMQProducer.SendLoginMessage(newUser);
@@ -45,6 +45,14 @@ namespace rabbit.server.Services
 
 			_rabitMQProducer.SendLogoutMessage($"{username}");
 			return true;
+		}
+
+		public async Task<bool> CheckAuth(Guid token)
+		{
+			if (Users.Any(u => u.Token == token))
+				return true;
+
+			return false;
 		}
 	}
 }

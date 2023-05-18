@@ -39,5 +39,16 @@ namespace rabbit.server.Controllers
 			return BadRequest("USER NOT FOUND");
 		}
 
+		[HttpGet("CheckAuth")]
+		public async Task<IActionResult> CheckAuth(Guid token)
+		{
+			if (await _authService.CheckAuth(token))
+			{
+				return Ok("YOU AUTH!");
+			}
+
+			return BadRequest("YOU LOGOUT!");
+		}
+
 	}
 }
