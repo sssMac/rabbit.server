@@ -2,7 +2,8 @@ version: '3.4'
 
 services:
   rabbit.server:
-    image: ${DOCKER_REGISTRY-}rabbitserver
-    build:
+    build: 
       context: .
-      dockerfile: rabbit.server/Dockerfile
+      dockerfile: rabbit.server\Dockerfile
+    ports:
+      - "34778:80"
