@@ -20,9 +20,10 @@ namespace rabbit.server.Controllers
 		[HttpGet("login")]
 		public async Task<IActionResult> Login(string username, string password)
 		{
-			if (await _authService.Login(username, password))
+			var token = Guid.NewGuid();
+			if (await _authService.Login(username, password, token))
 			{
-				return Ok(new User { Username = username, Password= password });
+				return Ok(new User { Username = username, Password= password , Token = token });
 			}
 
 			return BadRequest("User is already!");

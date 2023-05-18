@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json.Linq;
 using rabbit.server.Models;
 using rabbit.server.RabitMQ;
 
@@ -16,12 +17,12 @@ namespace rabbit.server.Services
 			Users = new List<User>();
 		}
 
-		public async Task<bool> Login(string username, string password)
+		public async Task<bool> Login(string username, string password, Guid token)
 		{
 			if (Users.Any(u => u.Username == username))
 				await logout(username);
 
-			var newUser = new User { Username = username, Password = password, Token = Guid.NewGuid() };
+			var newUser = new User { Username = username, Password = password, Token = token };
 			Users.Add(newUser);
 
 			_rabitMQProducer.SendLoginMessage(newUser);
