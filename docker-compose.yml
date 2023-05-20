@@ -4,6 +4,6 @@ services:
   rabbit.server:
     build: 
       context: .
-      dockerfile: rabbit.server\Dockerfile
+      dockerfile: rabbit.server/Dockerfile
     ports:
       - "34778:80"
